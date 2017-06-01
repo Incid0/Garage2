@@ -1,0 +1,70 @@
+﻿@model Garage2.Vehicle
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Vehicle</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Brand)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Brand)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Model)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Model)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Wheels)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Wheels)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EntryTime)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EntryTime)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.RegNr }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
