@@ -36,18 +36,16 @@ namespace Garage2.Controllers
             return View(vehicle);
         }
 
-        // GET: Garage/Create
-        public ActionResult Create()
+        public ActionResult Park()
         {
             return View();
         }
 
-        // POST: Garage/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RegNr,Type,Brand,Model,Color,Wheels,EntryTime")] Vehicle vehicle)
+        public ActionResult Park([Bind(Include = "RegNr,Type,Brand,Model,Color,Wheels,EntryTime")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
