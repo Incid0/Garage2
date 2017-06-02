@@ -204,7 +204,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Garage\Park.cshtml" />
-    <Content Include="Views\Garage\Delete.cshtml" />
+    <Content Include="Views\Garage\Checkout.cshtml" />
     <Content Include="Views\Garage\Details.cshtml" />
     <Content Include="Views\Garage\Edit.cshtml" />
     <Content Include="Views\Garage\Index.cshtml" />
