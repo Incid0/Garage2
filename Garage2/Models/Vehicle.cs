@@ -26,6 +26,7 @@ namespace Garage2
 		public string Model { get; set; }
 		[Display(Name = "Färg")]
 		public string Color { get; set; }
+		[Range(0, 100)]
 		[Display(Name = "Hjulantal")]
 		public int Wheels { get; set; }
 		[Display(Name = "Parkerat vid")]
