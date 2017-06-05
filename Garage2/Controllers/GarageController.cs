@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Garage2;
 using Garage2.Models;
 using System.Data.Entity.Infrastructure;
+using System.Reflection;
 
 namespace Garage2.Controllers
 {
@@ -16,21 +17,48 @@ namespace Garage2.Controllers
 	{
 		private VehiclesDB db = new VehiclesDB();
 
-		// GET: Garage
-		public ActionResult Index(string filter, string sortOrder)
+		public class MyComparer : IComparer<Object>
 		{
-			int sort = 0;
-			int.TryParse(sortOrder, out sort);
-			ViewBag.RegSortParm = ++sort;
+			public int Compare(object stringA, object stringB)
+			{
+				return stringA.ToString().CompareTo(stringB.ToString());
+			}
+		}
+		
+		private bool FilterFields(string text, params object[] fields)
+		{
+			return true;
+		}
+
+		// GET: Garage
+		public ActionResult Index(string filter, string sort)
+		{
+			bool Ascend = true;
+			ViewBag.SortParam = sort;
 			var result = db.Vehicles
-				.Where(v => (filter == null || v.RegNr.Contains(filter)))
-				.ToList();
+				.Where(v => (filter == null || v.RegNr.Contains(filter)));
+			//if((sort.IndexOf("_desc") > 0) {
+			//	sort = 
+			//}
+			//switch (sort) {
+			//	case "time":
+			//		result = result.OrderBy(v => v.EntryTime);
+			//	break;
+			//	case: "type":
+			//		result = result.OrderBy
+			//}
+			Func<Vehicle, object> func = v => v.Type;
+
+			MyComparer comparer = new MyComparer();
+			var result3 = result.OrderBy(func, comparer);
+			//result = result.Or
+			var result2 = result3.ToList();
 
 			if (Request.IsAjaxRequest())
 			{
-				return PartialView("_Vehicles", result);
+				return PartialView("_Vehicles", result2);
 			}
-			return View(result);
+			return View(result2);
 		}
 
 		// GET: Garage/Details/5

@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<Garage2.Vehicle>
 
 <div id="vehicleList">
-    <input type="hidden" name="sortOrder" value="@ViewBag.RegSortParm" />
+    <input type="hidden" name="sort" value="@ViewBag.SortParam" />
     <table class="table">
         <tr>
             <th>
                 @Ajax.ActionLink(Html.DisplayNameFor(model => model.RegNr).ToString(), "Index",
-                    new { sortOrder = ViewBag.RegSortParm },
+                    new { sort = "regnr" },
                     new AjaxOptions
                     {
                         HttpMethod = "get",
@@ -15,9 +15,24 @@
                     })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                @Ajax.ActionLink(Html.DisplayNameFor(model => model.Type).ToString(), "Index",
+                    new { sort = "type" },
+                    new AjaxOptions
+                    {
+                        HttpMethod = "get",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "vehicleList"
+                    })
             </th>
             <th>
+                @Ajax.ActionLink(Html.DisplayNameFor(model => model.EntryTime).ToString(), "Index",
+                    new { sortOrder = "time" },
+                    new AjaxOptions
+                    {
+                        HttpMethod = "get",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "vehicleList"
+                    })
                 @Html.DisplayNameFor(model => model.EntryTime)
             </th>
             <th></th>
