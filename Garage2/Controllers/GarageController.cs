@@ -17,9 +17,20 @@ namespace Garage2.Controllers
 		private VehiclesDB db = new VehiclesDB();
 
 		// GET: Garage
-		public ActionResult Index()
+		public ActionResult Index(string filter, string sortOrder)
 		{
-			return View(db.Vehicles.ToList());
+			int sort = 0;
+			int.TryParse(sortOrder, out sort);
+			ViewBag.RegSortParm = ++sort;
+			var result = db.Vehicles
+				.Where(v => (filter == null || v.RegNr.Contains(filter)))
+				.ToList();
+
+			if (Request.IsAjaxRequest())
+			{
+				return PartialView("_Vehicles", result);
+			}
+			return View(result);
 		}
 
 		// GET: Garage/Details/5
