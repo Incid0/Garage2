@@ -7,9 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Garage2;
+using Garage2.Extensions;
 using Garage2.Models;
 using System.Data.Entity.Infrastructure;
-using System.Reflection;
 
 namespace Garage2.Controllers
 {
@@ -17,51 +17,35 @@ namespace Garage2.Controllers
 	{
 		private VehiclesDB db = new VehiclesDB();
 
-		public class MyComparer : IComparer<Object>
+		public ActionResult Index(string filter, string sort = "")
 		{
-			public int Compare(object stringA, object stringB)
-			{
-				return stringA.ToString().CompareTo(stringB.ToString());
-			}
-		}
-		
-		private bool FilterFields(string text, params object[] fields)
-		{
-			return true;
-		}
-
-		// GET: Garage
-		public ActionResult Index(string filter, string sort)
-		{
-			bool Ascend = true;
+			ViewBag.Filter = filter;
 			ViewBag.SortParam = sort;
-			var result = db.Vehicles
-				.Where(v => (filter == null || v.RegNr.Contains(filter)));
-			//if((sort.IndexOf("_desc") > 0) {
-			//	sort = 
-			//}
-			//switch (sort) {
-			//	case "time":
-			//		result = result.OrderBy(v => v.EntryTime);
-			//	break;
-			//	case: "type":
-			//		result = result.OrderBy
-			//}
-			Func<Vehicle, object> func = v => v.Type;
-
-			MyComparer comparer = new MyComparer();
-			var result3 = result.OrderBy(func, comparer);
-			//result = result.Or
-			var result2 = result3.ToList();
+			IQueryable<Vehicle> result = db.Vehicles;
+			var filters = (filter ?? "").Trim().Split();
+			for (int i = 0; i < filters.Length; i++)
+			{
+				filter = filters[i];
+				if (filter != "")
+				{
+					result = result.Where(v => (
+						v.RegNr.Contains(filter) ||
+						v.Type.ToString().Contains(filter) ||
+						v.Brand.Contains(filter) ||
+						v.Model.Contains(filter) ||
+						v.Color.Contains(filter)));
+				}
+			}
+			var sortdir = sort.Split('_');
+			result = result.OrderBy(sortdir[0], sortdir.Length == 1);
 
 			if (Request.IsAjaxRequest())
 			{
-				return PartialView("_Vehicles", result2);
+				return PartialView("_Vehicles", result);
 			}
-			return View(result2);
+			return View(result);
 		}
 
-		// GET: Garage/Details/5
 		public ActionResult Details(string id)
 		{
 			if (id == null)

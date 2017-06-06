@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Garage2
 {
-//	public enum Vehicletypes { Airplane, Boat, Bus, Car, Motorcycle, Truck }
-	public enum Vehicletypes { Bil, Buss, Båt, Flygplan, Lastbil , Motorcykel }
+	//	public enum Vehicletypes { Airplane, Boat, Bus, Car, Motorcycle, Truck }
+	public enum Vehicletypes { Bil, Buss, Båt, Flygplan, Lastbil, Motorcykel }
 
 	public class Vehicle
 	{
-		[Display(Name ="Fordonstyp")]
+		[Display(Name = "Fordonstyp")]
 		public Vehicletypes Type { get; set; }
 		[Key]
 		[Required]
@@ -31,6 +32,11 @@ namespace Garage2
 		public int Wheels { get; set; }
 		[Display(Name = "Parkerat vid")]
 		public DateTime EntryTime { get; set; }
+		[Display(Name = "Egen tid")]
+		[NotMapped]
+		public string OwnTime {
+			get { return EntryTime.ToString(); }
+		}
 
 		public Vehicle()
 		{
