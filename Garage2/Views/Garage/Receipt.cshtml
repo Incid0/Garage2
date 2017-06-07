@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Kvitto på parkering";
+}
+@section styles{
+    <link href="~/Content/Receipt.css" rel="stylesheet" />
+}
+    <div>
+        <h3>Kvitto</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Registreringsnr
+            </dt>
+
+            <dd>
+                @ViewBag.RegNr
+            </dd>
+
+            <dt>
+                Fordonstyp
+            </dt>
+    
+            <dd>
+                @ViewBag.Type
+            </dd>
+    
+            <dt>
+                Märke
+            </dt>
+    
+            <dd>
+                @ViewBag.Brand
+            </dd>
+    
+            <dt>
+                Modell
+            </dt>
+    
+            <dd>
+                @ViewBag.Model
+            </dd>
+    
+            <dt>
+                Färg
+            </dt>
+    
+            <dd>
+                @ViewBag.Color
+            </dd>
+    
+            <dt>
+                Antal hjul
+            </dt>
+    
+            <dd>
+                @ViewBag.Wheels
+            </dd>
+    
+            <dt>
+                Parkerat vid
+            </dt>
+    
+            <dd>
+                @ViewBag.EntryTime
+            </dd>
+            <dt>
+                Hämtat vid
+            </dt>
+
+            <dd>
+                @DateTime.Now
+            </dd>
+            <dt>
+                Parkeringstid
+            </dt>
+
+            <dd>
+                @ViewBag.ParkDuration
+            </dd>
+            <dt class="cost">
+                Kostnad för parkering
+            </dt>
+
+            <dd class="cost">
+                @ViewBag.ParkCost kr
+            </dd>
+    
+        </dl>
+    </div>
+    <p class="receipthide">
+        @Html.ActionLink("Tillbaka till översikten", "Index", null, new { @class = "btn btn-primary", role = "button" })
+    </p>

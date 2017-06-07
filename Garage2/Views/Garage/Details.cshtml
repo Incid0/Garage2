@@ -8,13 +8,21 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
+                @Html.DisplayNameFor(model => model.RegNr)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RegNr)
+            </dd>
+
+            <dt>
                 @Html.DisplayNameFor(model => model.Type)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Type)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Brand)
             </dt>
@@ -58,6 +66,6 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Redigera fordonsdata", "Edit", new { id = Model.RegNr }) |
-        @Html.ActionLink("Tillbaka till översikten", "Index")
+        @Html.ActionLink("Redigera fordonsdata", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary", role = "button" }) &nbsp;
+        @Html.ActionLink("Tillbaka till översikten", "Index", null, new { @class = "btn btn-primary", role = "button" })
     </p>

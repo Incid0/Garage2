@@ -22,21 +22,21 @@ namespace Garage2.Controllers
 			ViewBag.Filter = filter;
 			ViewBag.SortParam = sort;
 			IQueryable<Vehicle> result = db.Vehicles;
-			var filters = (filter ?? "").Trim().Split();
+			string[] filters = (filter ?? "").Trim().Split();
 			for (int i = 0; i < filters.Length; i++)
 			{
-				filter = filters[i];
-				if (filter != "")
+				string tmpfilter = filters[i];
+				if (tmpfilter != "")
 				{
 					result = result.Where(v => (
-						v.RegNr.Contains(filter) ||
-						v.Type.ToString().Contains(filter) ||
-						v.Brand.Contains(filter) ||
-						v.Model.Contains(filter) ||
-						v.Color.Contains(filter)));
+						v.RegNr.Contains(tmpfilter) ||
+						v.Type.ToString().Contains(tmpfilter) ||
+						v.Brand.Contains(tmpfilter) ||
+						v.Model.Contains(tmpfilter) ||
+						v.Color.Contains(tmpfilter)));
 				}
 			}
-			var sortdir = sort.Split('_');
+			string[] sortdir = sort.Split('_');
 			result = result.OrderBy(sortdir[0], sortdir.Length == 1);
 
 			if (Request.IsAjaxRequest())
@@ -46,7 +46,7 @@ namespace Garage2.Controllers
 			return View(result);
 		}
 
-		public ActionResult Details(string id)
+		public ActionResult Details(int? id)
 		{
 			if (id == null)
 			{
@@ -90,7 +90,7 @@ namespace Garage2.Controllers
 			return View(vehicle);
 		}
 
-		public ActionResult Edit(string id)
+		public ActionResult Edit(int? id)
 		{
 			if (id == null)
 			{
@@ -106,7 +106,7 @@ namespace Garage2.Controllers
 
 		[HttpPost, ActionName("Edit")]
 		[ValidateAntiForgeryToken]
-		public ActionResult EditPost(string id)
+		public ActionResult EditPost(int? id)
 		{
 			if (id == null)
 			{
@@ -131,7 +131,7 @@ namespace Garage2.Controllers
 			return View(vehicleToUpdate);
 		}
 
-		public ActionResult Checkout(string id, bool? saveChangesError = false)
+		public ActionResult Checkout(int? id, bool? saveChangesError = false)
 		{
 			if (id == null)
 			{
@@ -152,11 +152,25 @@ namespace Garage2.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Checkout(string id)
+		public ActionResult Receipt(int? id)
 		{
 			try
 			{
 				Vehicle vehicle = db.Vehicles.Find(id);
+				if (vehicle == null)
+				{
+					return HttpNotFound();
+				}
+				ViewBag.Type = vehicle.Type;
+				ViewBag.RegNr = vehicle.RegNr;
+				ViewBag.Brand = vehicle.Brand;
+				ViewBag.Model = vehicle.Model;
+				ViewBag.Color = vehicle.Color;
+				ViewBag.Wheels = vehicle.Wheels;
+				ViewBag.EntryTime = vehicle.EntryTime;
+				ViewBag.ParkDuration = vehicle.ParkDuration;
+				ViewBag.ParkCost = vehicle.ParkCost;
+
 				db.Vehicles.Remove(vehicle);
 				db.SaveChanges();
 			}
@@ -165,7 +179,7 @@ namespace Garage2.Controllers
 				//Log the error (uncomment dex variable name and add a line here to write a log.
 				return RedirectToAction("Delete", new { id = id, saveChangesError = true });
 			}
-			return RedirectToAction("Index");
+			return View();
 		}
 
 		protected override void Dispose(bool disposing)

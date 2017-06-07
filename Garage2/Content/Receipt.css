@@ -1,0 +1,38 @@
+﻿.dl-horizontal {
+    font-size: 1.5em;
+}
+
+.dl-horizontal dt {
+    float: left;
+    width: 160px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+}
+
+.dl-horizontal dd {
+    margin-left: 180px;
+}
+
+dt.cost {
+    border-top: 3px solid black;
+    margin-top: 20px;
+}
+
+dd.cost {
+    margin-left: 160px;
+    padding-left: 20px;
+    border-top: 3px solid black;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+@media print {
+    .receipthide {
+        display: none;
+    }
+
+    footer {
+        display: none;
+    }
+}

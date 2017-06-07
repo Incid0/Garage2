@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Garage2.Vehicle>
 @{
-    ViewBag.Title = "Överblick parkerade fordon";
+    ViewBag.Title = "Parkeringsöversikt";
 }
 @section scripts{
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
@@ -15,9 +15,8 @@
                         UpdateTargetId = "vehicleList"
                     }))
 {
-    <label for="vehiclefilter">Filtrera: </label>
-    <input id="vehiclefilter" type="search" name="filter" />
-    <input type="submit" name="filtersubmit" />
+    <label for="vehiclefilter" class="control-label">Filtrera: </label>
+    <input id="vehiclefilter" type="search" name="filter" class="form-control" />
     <p></p>
     @Html.Partial("_Vehicles", Model)
 }

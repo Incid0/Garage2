@@ -2,27 +2,11 @@
 @{
     ViewBag.Title = "Hämta fordon";
 }
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Delete</title>
-</head>
-<body>
-    <h3>Are you sure you want to delete this?</h3>
+    <h3>Är du säker på att du vill hämta ut @Html.DisplayFor(model => model.Type).ToString().ToLower() med registreringsnr: <span class="alert-danger">@Html.DisplayFor(model => model.RegNr)</span> ?</h3>
     <div>
-        <h4>Vehicle</h4>
+        <h4>Fordon</h4>
         <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Type)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Type)
-            </dd>
-    
+        <dl class="dl-horizontal">   
             <dt>
                 @Html.DisplayNameFor(model => model.Brand)
             </dt>
@@ -54,25 +38,15 @@
             <dd>
                 @Html.DisplayFor(model => model.Wheels)
             </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.EntryTime)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.EntryTime)
-            </dd>
-    
         </dl>
     
-        @using (Html.BeginForm()) {
+        @using (Html.BeginForm("receipt", "garage")) {
             @Html.AntiForgeryToken()
     
             <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
+                @Html.HiddenFor(model => model.Id)
+                <input type="submit" value="Bekräfta" class="btn btn-danger" /> &nbsp;
+                @Html.ActionLink("Tillbaka till översikten", "Index", null, new { @class = "btn btn-primary", role = "button" })
             </div>
         }
     </div>
-</body>
-</html>

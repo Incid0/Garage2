@@ -14,17 +14,21 @@ namespace Garage2
 
 	public class Vehicle
 	{
+		public int Id { get; set; }
+		[Required]
 		[Display(Name = "Fordonstyp")]
 		public Vehicletypes Type { get; set; }
-		[Key]
 		[Required]
-		[StringLength(6, MinimumLength = 6)]
+		[StringLength(8, MinimumLength = 5)]
 		[Display(Name = "Registreringsnr")]
 		public string RegNr { get; set; }
+		[StringLength(40)]
 		[Display(Name = "Märke")]
 		public string Brand { get; set; }
+		[StringLength(40)]
 		[Display(Name = "Modell")]
 		public string Model { get; set; }
+		[StringLength(40)]
 		[Display(Name = "Färg")]
 		public string Color { get; set; }
 		[Range(0, 100)]
@@ -32,24 +36,36 @@ namespace Garage2
 		public int Wheels { get; set; }
 		[Display(Name = "Parkerat vid")]
 		public DateTime EntryTime { get; set; }
-		[Display(Name = "Egen tid")]
 		[NotMapped]
-		public string OwnTime {
-			get { return EntryTime.ToString(); }
+		public string ParkDuration {
+			get { return FormattedTimeSpan(DateTime.Now - EntryTime); }
+		}
+		[NotMapped]
+		public string ParkCost {
+			get { return String.Format("{0:#.00}", (DateTime.Now - EntryTime).TotalSeconds / 3600d * 60d); }
 		}
 
 		public Vehicle()
 		{
-			//Wheels = 0;
 		}
-
-		public virtual bool Match(string pattern)
+	
+		static private string FormattedTimeSpan(TimeSpan span)
 		{
-			return RegNr.IndexOf(pattern, StringComparison.CurrentCultureIgnoreCase) >= 0 ||
-					Brand.IndexOf(pattern, StringComparison.CurrentCultureIgnoreCase) >= 0 ||
-					Model.IndexOf(pattern, StringComparison.CurrentCultureIgnoreCase) >= 0 ||
-					Color.IndexOf(pattern, StringComparison.CurrentCultureIgnoreCase) >= 0 ||
-					Wheels.ToString().IndexOf(pattern) >= 0;
+			string result = "";
+			
+			if (span.Days > 0)
+			{
+				result += span.Days.ToString() + "dag, ";
+			}
+			if (span.Hours > 0)
+			{
+				result += span.Hours.ToString() + "tim, ";
+			}
+			if (span.Minutes > 0)
+			{
+				result += span.Minutes.ToString() + "min";
+			}
+			return result;
 		}
 	}
 }
