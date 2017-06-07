@@ -32,3 +32,8 @@ body > div.alert {
     right: 0;
     z-index: 10000
 }
+
+/* Frontpage paneled progressbar needs no margin */
+#occupied-bar {
+    margin-bottom: 0px;
+}

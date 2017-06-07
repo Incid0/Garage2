@@ -154,6 +154,7 @@
       <DependentUpon>201706012220074_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\VehiclesDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

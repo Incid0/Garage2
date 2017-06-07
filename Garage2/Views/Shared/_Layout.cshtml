@@ -31,6 +31,8 @@
             </div>
         </div>
     </div>
+    @*To correctly view the Jumbotron it needs to be rendered outside the container*@
+    @RenderSection("jumbotron", required: false)
     <div class="container body-content">
         @RenderBody()
         <hr />

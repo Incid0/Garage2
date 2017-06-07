@@ -1,8 +1,23 @@
-﻿@{
+﻿@model Garage2.HomeViewModel
+@{
     ViewBag.Title = "Hem";
 }
-
+@section jumbotron{
 <div class="jumbotron">
-    <h1>Garage v2.0</h1>
-    <p class="lead">Välkommen till Garaget v2.0. Här kan du parkera dina fordon!</p>
+    <div class="container body-content">
+        <h1 class="text-center">Garage v2.0</h1>
+        <p class="lead text-center">Välkommen till Garaget v2.0. Här kan du parkera dina fordon!</p>
+        <p class="lead text-center">För nuvarande är @Html.DisplayFor(model => model.Current) / @Html.DisplayFor(model => model.Max) platser upptagna</p>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="occupied-bar" class="progress">
+                    <div class="progress-bar progress-bar-@Html.DisplayFor(model => model.ColorLevel) progress-bar-striped" role="progressbar" aria-valuenow="@Html.DisplayFor(model => model.Percent)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.DisplayFor(model => model.Percent)%">
+                        <span>@Html.DisplayFor(model => model.Percent)%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+}
+@Html.ActionLink("Till översikten", "index", "garage", null, new { @class = "btn btn-primary btn-lg" })
