@@ -19,7 +19,8 @@ namespace Garage2
 		[Display(Name = "Fordonstyp")]
 		public Vehicletypes Type { get; set; }
 		[Required]
-		[StringLength(8, MinimumLength = 5)]
+		[StringLength(8, ErrorMessage = "{0} måste vara mellan 5 och 8 tecken långt.", MinimumLength = 5)]
+		[RegularExpression("^[A-Za-z0-9]*$", ErrorMessage = "Endast tecknen A till Z och 0 till är tillåtna.")]
 		[Display(Name = "Registreringsnr")]
 		public string RegNr { get; set; }
 		[StringLength(40)]
