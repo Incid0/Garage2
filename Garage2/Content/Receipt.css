@@ -1,8 +1,4 @@
-﻿.dl-horizontal {
-    font-size: 1.5em;
-}
-
-.dl-horizontal dt {
+﻿.dl-horizontal dt {
     float: left;
     width: 160px;
     overflow: hidden;
@@ -28,6 +24,10 @@ dd.cost {
 }
 
 @media print {
+    .dl-horizontal {
+        font-size: 1.5em;
+    }
+
     .receipthide {
         display: none;
     }

@@ -2,9 +2,8 @@
 @{
     ViewBag.Title = "Hämta fordon";
 }
-    <h3>Är du säker på att du vill hämta ut @Html.DisplayFor(model => model.Type).ToString().ToLower() med registreringsnr: <span class="alert-danger">@Html.DisplayFor(model => model.RegNr)</span> ?</h3>
+    <h3>Är du säker på att du vill hämta ut @WebUtility.HtmlDecode(Html.DisplayFor(model => model.Type).ToString()).ToLower() med registreringsnr: <span class="alert-danger">@Html.DisplayFor(model => model.RegNr)</span> ?</h3>
     <div>
-        <h4>Fordon</h4>
         <hr />
         <dl class="dl-horizontal">   
             <dt>

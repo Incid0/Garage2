@@ -43,7 +43,7 @@ namespace Garage2
 		}
 		[NotMapped]
 		public string ParkCost {
-			get { return String.Format("{0:#.00}", (DateTime.Now - EntryTime).TotalSeconds / 3600d * 60d); }
+			get { return String.Format("{0:#.00} kr", (DateTime.Now - EntryTime).TotalSeconds / 3600d * 60d); }
 		}
 
 		public Vehicle()
@@ -86,6 +86,8 @@ namespace Garage2
 		public int Wheels { get; set; }
 		[Display(Name = "Parkerat vid")]
 		public DateTime EntryTime { get; set; }
+		[Display(Name = "Hämtat vid")]
+		public DateTime CheckoutTime { get; set; }
 		[Display(Name = "Parkeringstid")]
 		public string ParkDuration { get; set; }
 		[Display(Name = "Park.kostnad")]

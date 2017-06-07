@@ -118,7 +118,7 @@ namespace Garage2.Controllers
 				try
 				{
 					db.SaveChanges();
-
+					TempData["message"] = "Fordonet är uppdaterat.";
 					return RedirectToAction("Index");
 				}
 				catch (RetryLimitExceededException /* dex */)
@@ -154,6 +154,7 @@ namespace Garage2.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Receipt(int? id)
 		{
+			ReceiptViewModel receipt;
 			try
 			{
 				Vehicle vehicle = db.Vehicles.Find(id);
@@ -161,7 +162,7 @@ namespace Garage2.Controllers
 				{
 					return HttpNotFound();
 				}
-				var model = new ReceiptViewModel()
+				receipt = new ReceiptViewModel()
 				{
 					Type = vehicle.Type,
 					RegNr = vehicle.RegNr,
@@ -170,6 +171,7 @@ namespace Garage2.Controllers
 					Color = vehicle.Color,
 					Wheels = vehicle.Wheels,
 					EntryTime = vehicle.EntryTime,
+					CheckoutTime = DateTime.Now,
 					ParkDuration = vehicle.ParkDuration,
 					ParkCost = vehicle.ParkCost
 				};		  
@@ -181,7 +183,7 @@ namespace Garage2.Controllers
 				//Log the error (uncomment dex variable name and add a line here to write a log.
 				return RedirectToAction("Delete", new { id = id, saveChangesError = true });
 			}
-			return View(model);
+			return View(receipt);
 		}
 
 		protected override void Dispose(bool disposing)
