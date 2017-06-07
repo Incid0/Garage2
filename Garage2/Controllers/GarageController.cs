@@ -161,16 +161,18 @@ namespace Garage2.Controllers
 				{
 					return HttpNotFound();
 				}
-				ViewBag.Type = vehicle.Type;
-				ViewBag.RegNr = vehicle.RegNr;
-				ViewBag.Brand = vehicle.Brand;
-				ViewBag.Model = vehicle.Model;
-				ViewBag.Color = vehicle.Color;
-				ViewBag.Wheels = vehicle.Wheels;
-				ViewBag.EntryTime = vehicle.EntryTime;
-				ViewBag.ParkDuration = vehicle.ParkDuration;
-				ViewBag.ParkCost = vehicle.ParkCost;
-
+				var model = new ReceiptViewModel()
+				{
+					Type = vehicle.Type,
+					RegNr = vehicle.RegNr,
+					Brand = vehicle.Brand,
+					Model = vehicle.Model,
+					Color = vehicle.Color,
+					Wheels = vehicle.Wheels,
+					EntryTime = vehicle.EntryTime,
+					ParkDuration = vehicle.ParkDuration,
+					ParkCost = vehicle.ParkCost
+				};		  
 				db.Vehicles.Remove(vehicle);
 				db.SaveChanges();
 			}
@@ -179,7 +181,7 @@ namespace Garage2.Controllers
 				//Log the error (uncomment dex variable name and add a line here to write a log.
 				return RedirectToAction("Delete", new { id = id, saveChangesError = true });
 			}
-			return View();
+			return View(model);
 		}
 
 		protected override void Dispose(bool disposing)

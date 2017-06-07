@@ -49,11 +49,11 @@ namespace Garage2
 		public Vehicle()
 		{
 		}
-	
+
 		static private string FormattedTimeSpan(TimeSpan span)
 		{
 			string result = "";
-			
+
 			if (span.Days > 0)
 			{
 				result += span.Days.ToString() + "dag, ";
@@ -68,5 +68,27 @@ namespace Garage2
 			}
 			return result;
 		}
+	}
+
+	public class ReceiptViewModel
+	{
+		[Display(Name = "Fordonstyp")]
+		public Vehicletypes Type { get; set; }
+		[Display(Name = "Registreringsnr")]
+		public string RegNr { get; set; }
+		[Display(Name = "Märke")]
+		public string Brand { get; set; }
+		[Display(Name = "Modell")]
+		public string Model { get; set; }
+		[Display(Name = "Färg")]
+		public string Color { get; set; }
+		[Display(Name = "Hjulantal")]
+		public int Wheels { get; set; }
+		[Display(Name = "Parkerat vid")]
+		public DateTime EntryTime { get; set; }
+		[Display(Name = "Parkeringstid")]
+		public string ParkDuration { get; set; }
+		[Display(Name = "Park.kostnad")]
+		public string ParkCost { get; set; }
 	}
 }
