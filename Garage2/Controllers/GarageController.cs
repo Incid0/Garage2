@@ -78,6 +78,7 @@ namespace Garage2.Controllers
 					vehicle.EntryTime = DateTime.Now;
 					db.Vehicles.Add(vehicle);
 					db.SaveChanges();
+					TempData["alert"] = "Fordonet är parkerat!";
 					return RedirectToAction("Index");
 				}
 			}
@@ -118,7 +119,7 @@ namespace Garage2.Controllers
 				try
 				{
 					db.SaveChanges();
-					TempData["message"] = "Fordonet är uppdaterat.";
+					TempData["alert"] = "Fordonet är uppdaterat!";
 					return RedirectToAction("Index");
 				}
 				catch (RetryLimitExceededException /* dex */)

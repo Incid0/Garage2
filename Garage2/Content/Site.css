@@ -22,3 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Haxxored alertviewer on top*/
+body > div.alert {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000
+}

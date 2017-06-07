@@ -9,6 +9,9 @@
     @RenderSection("styles", required: false)
 </head>
 <body>
+    <div class="alert alert-success">
+        <div id="alertbox" class="container body-content">@TempData["alert"]</div>
+    </div>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">

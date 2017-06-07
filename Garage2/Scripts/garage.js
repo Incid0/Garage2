@@ -10,7 +10,14 @@
     });
 
     $('input#RegNr').change(function () {
-        console.log(this);
         this.value = this.value.toUpperCase();
     });
+
+    var alertbox = $('#alertbox');
+    if (alertbox.length && alertbox.text()) {
+        alertbox.parent().show();
+        setTimeout(function () {
+            alertbox.parent().fadeOut(500);
+        }, 3000)
+    }
 });
