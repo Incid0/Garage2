@@ -16,44 +16,45 @@
 
 <div id="vehicleList">
     <input type="hidden" name="sort" value="@ViewBag.SortParam" />
-    <table class="table table-striped table-responsive">
-        <tr>
-            <th>
-                @SortHeader("RegNr", Html.DisplayNameFor(model => model.RegNr).ToString())
-            </th>
-            <th>
-                @SortHeader("Type", Html.DisplayNameFor(model => model.Type).ToString())
-            </th>
-            <th>
-                @SortHeader("Color", WebUtility.HtmlDecode(Html.DisplayNameFor(model => model.Color).ToString()))
-            </th>
-            <th>
-                @SortHeader("EntryTime", "Parkeringstid")
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+    <div class="table-responsive">
+        <table class="table table-striped">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RegNr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
-                    @item.ParkDuration
-                </td>
-                <td>
-                    @Html.ActionLink("Redigera", "Edit", new { id = item.Id }, new { @class = "btn btn-info btn-xs", role = "button" }) &nbsp;
-                    @Html.ActionLink("Fordonsdata", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-xs", role = "button" }) &nbsp;
-                    @Html.ActionLink("Hämta fordon", "Checkout", new { id = item.Id }, new { @class = "btn btn-info btn-xs", role = "button" })
-                </td>
+                <th>
+                    @SortHeader("RegNr", Html.DisplayNameFor(model => model.RegNr).ToString())
+                </th>
+                <th>
+                    @SortHeader("Type", Html.DisplayNameFor(model => model.Type).ToString())
+                </th>
+                <th>
+                    @SortHeader("Color", WebUtility.HtmlDecode(Html.DisplayNameFor(model => model.Color).ToString()))
+                </th>
+                <th>
+                    @SortHeader("EntryTime", "Parkeringstid")
+                </th>
+                <th></th>
             </tr>
-        }
-    </table>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegNr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Color)
+                    </td>
+                    <td>
+                        @item.ParkDuration
+                    </td>
+                    <td>
+                        @Html.ActionLink("Redigera", "Edit", new { id = item.Id }, new { @class = "btn btn-info btn-xs", role = "button" }) &nbsp;
+                        @Html.ActionLink("Fordonsdata", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-xs", role = "button" }) &nbsp;
+                        @Html.ActionLink("Hämta fordon", "Checkout", new { id = item.Id }, new { @class = "btn btn-info btn-xs", role = "button" })
+                    </td>
+                </tr>}
+        </table>
+    </div>
 </div>

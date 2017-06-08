@@ -1,0 +1,19 @@
+﻿@model Garage2.StatisticsViewModal
+
+@{
+    ViewBag.Title = "Statistiksida";
+}
+<div>
+    <h4>Statistik</h4>
+    <hr />
+    <div class="table-responsive">
+        <table class="table">
+            <tfoot>
+                <tr>
+                    <th width="40%">@Html.DisplayNameFor(model => model.TotalWheels)</th>
+                    <td>@Html.DisplayFor(model => model.TotalWheels)</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

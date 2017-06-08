@@ -93,4 +93,20 @@ namespace Garage2
 		[Display(Name = "Park.kostnad")]
 		public string ParkCost { get; set; }
 	}
+
+	public class TypeCount
+	{
+		[Display(Name = "Fordonstyp")]
+		public Vehicletypes Type { get; set; }
+		[Display(Name = "Antal")]
+		public int Count { get; set; }
+	}
+
+	public class StatisticsViewModal
+	{
+		[Display(Name = "Totalt antal hjul på parkeringen")]
+		public int TotalWheels { get; set; }
+		[Display(Name = "Antal / Fordonstyp")]
+		public IEnumerable<TypeCount> TypeCountList { get; set; }
+	}
 }

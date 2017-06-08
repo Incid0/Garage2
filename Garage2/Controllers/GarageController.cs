@@ -175,7 +175,7 @@ namespace Garage2.Controllers
 					CheckoutTime = DateTime.Now,
 					ParkDuration = vehicle.ParkDuration,
 					ParkCost = vehicle.ParkCost
-				};		  
+				};
 				db.Vehicles.Remove(vehicle);
 				db.SaveChanges();
 			}
@@ -185,6 +185,28 @@ namespace Garage2.Controllers
 				return RedirectToAction("Delete", new { id = id, saveChangesError = true });
 			}
 			return View(receipt);
+		}
+
+		public ActionResult Statistics()
+		{
+			StatisticsViewModal model;
+			try
+			{
+				model = new StatisticsViewModal();
+				model.TotalWheels = db.Vehicles.Sum(v => v.Wheels);
+				model.TypeCountList = db.Vehicles
+					.GroupBy(v => v.Type)
+					.Select(item => new TypeCount
+					{
+						Type = item.Key,
+						Count = item.Count()
+					});
+			}
+			catch (Exception)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+			}
+			return View(model);
 		}
 
 		protected override void Dispose(bool disposing)
