@@ -38,12 +38,16 @@ namespace Garage2
 		[Display(Name = "Parkerat vid")]
 		public DateTime EntryTime { get; set; }
 		[NotMapped]
+		public TimeSpan ParkSpan {
+			get { return DateTime.Now - EntryTime; }
+		}
+		[NotMapped]
 		public string ParkDuration {
-			get { return FormattedTimeSpan(DateTime.Now - EntryTime); }
+			get { return FormattedTimeSpan(ParkSpan); }
 		}
 		[NotMapped]
 		public string ParkCost {
-			get { return String.Format("{0:#.00} kr", (DateTime.Now - EntryTime).TotalSeconds / 3600d * 60d); }
+			get { return String.Format("{0:C}", ParkSpan.TotalSeconds / 3600d * 60d); }
 		}
 
 		public Vehicle()
@@ -100,13 +104,18 @@ namespace Garage2
 		public Vehicletypes Type { get; set; }
 		[Display(Name = "Antal")]
 		public int Count { get; set; }
+		[Display(Name = "Summa hjul")]
+		public int Wheels { get; set; }
+		[Display(Name = "Summa kostnad")]
+		public string Cost { get; set; }
 	}
 
 	public class StatisticsViewModal
 	{
-		[Display(Name = "Totalt antal hjul på parkeringen")]
+		[Display(Name = "Totalt")]
+		public int TotalCount { get; set; }
 		public int TotalWheels { get; set; }
-		[Display(Name = "Antal / Fordonstyp")]
+		public string TotalCost { get; set; }
 		public IEnumerable<TypeCount> TypeCountList { get; set; }
 	}
 }

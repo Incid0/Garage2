@@ -192,15 +192,22 @@ namespace Garage2.Controllers
 			StatisticsViewModal model;
 			try
 			{
-				model = new StatisticsViewModal();
-				model.TotalWheels = db.Vehicles.Sum(v => v.Wheels);
-				model.TypeCountList = db.Vehicles
-					.GroupBy(v => v.Type)
-					.Select(item => new TypeCount
-					{
-						Type = item.Key,
-						Count = item.Count()
-					});
+				var VehicleList = db.Vehicles.ToList();
+				model = new StatisticsViewModal()
+				{
+					TotalCount = VehicleList.Count(),
+					TotalWheels = VehicleList.Sum(v => v.Wheels),
+					TotalCost = String.Format("{0:C}", VehicleList.Sum(v => v.ParkSpan.TotalSeconds) / 3600d * 60d),
+					TypeCountList = VehicleList
+						.GroupBy(v => v.Type)
+						.Select(item => new TypeCount
+						{
+							Type = item.Key,
+							Count = item.Count(),
+							Wheels = item.Sum(v => v.Wheels),
+							Cost = String.Format("{0:C}", item.Sum(v => v.ParkSpan.TotalSeconds) / 3600d * 60d)
+						})
+				};
 			}
 			catch (Exception)
 			{

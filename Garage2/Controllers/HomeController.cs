@@ -16,6 +16,7 @@ namespace Garage2.Controllers
 			var model = new HomeViewModel();
 			var vehicles = db.Vehicles;
 			model.Current = vehicles.Count();
+			model.Free = model.Max - model.Current;
 			if (model.Percent < 50)
 				model.ColorLevel = "success";
 			else if (model.Percent < 75)

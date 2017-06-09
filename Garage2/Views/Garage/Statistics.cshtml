@@ -6,14 +6,53 @@
 <div>
     <h4>Statistik</h4>
     <hr />
-    <div class="table-responsive">
-        <table class="table">
-            <tfoot>
-                <tr>
-                    <th width="40%">@Html.DisplayNameFor(model => model.TotalWheels)</th>
-                    <td>@Html.DisplayFor(model => model.TotalWheels)</td>
-                </tr>
-            </tfoot>
-        </table>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">Statistiklista fördelat på fordonstyp</h1>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TypeCountList.FirstOrDefault().Type)
+                        </th>
+                        <th class="text-right">
+                            @Html.DisplayNameFor(model => model.TypeCountList.FirstOrDefault().Count)
+                        </th>
+                        <th class="text-right">
+                            @Html.DisplayNameFor(model => model.TypeCountList.FirstOrDefault().Wheels)
+                        </th>
+                        <th class="text-right">
+                            @Html.DisplayNameFor(model => model.TypeCountList.FirstOrDefault().Cost)
+                        </th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.TypeCountList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => item.Type)
+                        </td>
+                        <td class="text-right">
+                            @Html.DisplayFor(model => item.Count)
+                        </td>
+                        <td class="text-right">
+                            @Html.DisplayFor(model => item.Wheels)
+                        </td>
+                        <td class="text-right">
+                            @Html.DisplayFor(model => item.Cost)
+                        </td>
+                    </tr>}
+                <tfoot>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.TotalCount)</th>
+                        <th class="text-right">@Html.DisplayFor(model => model.TotalCount)</th>
+                        <th class="text-right">@Html.DisplayFor(model => model.TotalWheels)</th>
+                        <th class="text-right">@Html.DisplayFor(model => model.TotalCost)</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 </div>

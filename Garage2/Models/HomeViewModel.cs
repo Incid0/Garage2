@@ -8,6 +8,7 @@ namespace Garage2
 	public class HomeViewModel
 	{
 		public int Current { get; set; }
+		public int Free { get; set; }
 		public int Max { get; set; }
 		public int Percent {
 			get { return (int)Current * 100 / Max; }
