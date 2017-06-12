@@ -66,10 +66,7 @@ namespace Garage2
 			{
 				result += span.Hours.ToString() + "tim, ";
 			}
-			if (span.Minutes > 0)
-			{
-				result += span.Minutes.ToString() + "min";
-			}
+			result += span.Minutes.ToString() + "min";
 			return result;
 		}
 	}

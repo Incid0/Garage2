@@ -37,3 +37,8 @@ body > div.alert {
 #occupied-bar {
     margin-bottom: 0px;
 }
+
+.modal-content {
+    width: 500px;
+    margin: 70px auto;
+}

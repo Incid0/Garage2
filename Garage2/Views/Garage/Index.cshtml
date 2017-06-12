@@ -2,18 +2,15 @@
 @{
     ViewBag.Title = "Parkeringsöversikt";
 }
-@section scripts{
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-}
 <p>
 </p>
 @using (Ajax.BeginForm(
-                    new AjaxOptions
-                    {
-                        HttpMethod = "get",
-                        InsertionMode = InsertionMode.Replace,
-                        UpdateTargetId = "vehicleList"
-                    }))
+    new AjaxOptions
+    {
+        HttpMethod = "get",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "vehicleList"
+    }))
 {
     <label for="vehiclefilter" class="control-label">Filtrera: </label>
     <input id="vehiclefilter" type="search" name="filter" class="form-control" />
@@ -23,3 +20,7 @@
 <p>
     <a href="@Url.Action("Park")" class="btn btn-primary btn-lg">Parkera fordon</a>
 </p>
+<div id="modalContainer" class="modal" tabindex="-1" role="dialog">
+    <div id="popupContent" class="modal-content">
+    </div>
+</div>

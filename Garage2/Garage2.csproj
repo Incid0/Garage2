@@ -222,6 +222,8 @@
     <Content Include="Views\Shared\_Vehicles.cshtml" />
     <Content Include="Views\Garage\Receipt.cshtml" />
     <Content Include="Views\Garage\Statistics.cshtml" />
+    <Content Include="Views\Shared\_Details.cshtml" />
+    <Content Include="Views\Shared\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

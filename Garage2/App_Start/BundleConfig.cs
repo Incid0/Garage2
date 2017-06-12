@@ -8,9 +8,16 @@ namespace Garage2
 		// For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
 		public static void RegisterBundles(BundleCollection bundles)
 		{
-			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+			bundles.Add(new ScriptBundle("~/bundles/garage").Include(
 						"~/Scripts/jquery-{version}.js",
+						"~/Scripts/jquery.validate*",
+						"~/Scripts/jquery.unobtrusive-ajax.js",
+						"~/Scripts/bootstrap.js",
+						"~/Scripts/respond.js",
 						"~/Scripts/garage.js"));
+
+			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+						"~/Scripts/jquery-{version}.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
 						"~/Scripts/jquery.validate*"));

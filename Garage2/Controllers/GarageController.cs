@@ -57,7 +57,7 @@ namespace Garage2.Controllers
 			{
 				return HttpNotFound();
 			}
-			return View(vehicle);
+			return PartialView("_Details", vehicle);
 		}
 
 		public ActionResult Park()
@@ -102,7 +102,7 @@ namespace Garage2.Controllers
 			{
 				return HttpNotFound();
 			}
-			return View(vehicle);
+			return PartialView("_Edit", vehicle);
 		}
 
 		[HttpPost, ActionName("Edit")]
@@ -114,13 +114,13 @@ namespace Garage2.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 			var vehicleToUpdate = db.Vehicles.Find(id);
-			if (TryUpdateModel(vehicleToUpdate, "", new string[] { "RegNr", "Type", "Brand", "Model", "Wheels" }))
+			if (TryUpdateModel(vehicleToUpdate, "", new string[] { "RegNr", "Type", "Brand", "Model", "Color", "Wheels" }))
 			{
 				try
 				{
 					db.SaveChanges();
 					TempData["alert"] = "Fordonet är uppdaterat!";
-					return RedirectToAction("Index");
+					return Content("Success");
 				}
 				catch (RetryLimitExceededException /* dex */)
 				{
@@ -129,7 +129,7 @@ namespace Garage2.Controllers
 					ModelState.AddModelError("", "Kan inte spara ändringar. Försök igen och om problemet kvarstår kontakta din systemadministratör.");
 				}
 			}
-			return View(vehicleToUpdate);
+			return PartialView("_Edit", vehicleToUpdate);
 		}
 
 		public ActionResult Checkout(int? id, bool? saveChangesError = false)
