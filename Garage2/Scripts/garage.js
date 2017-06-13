@@ -16,7 +16,7 @@
                 var filter = $(this);
                 if (filterhandler) clearTimeout(filterhandler);
                 filterhandler = setTimeout(function () {
-                    filter.parents('form').submit();
+                    filter.closest('form').submit();
                     filterhandler = null;
                 }, 300);
             });
@@ -39,10 +39,6 @@
             $('#modalContainer').on('hidden.bs.modal', function () {
                 $(this).removeData('bs.modal').children('.modal-content').html('');
             });
-            $('#modalContainer').on('click', '#save-btn', function () {
-                //$('#modal-container').modal('hide');
-                localAlert('Detta är en test!');
-            });
         },
         showAlert: function (message) {
             localAlert(message)
@@ -57,6 +53,14 @@
             $('input#RegNr').change(function () {
                 this.value = this.value.toUpperCase();
             });
+            var input = $('#popupResult'), result = input.val(), data = result.split('|');
+            if (result) {
+                localAlert(data[1]);
+                if (data[0] === 'success') {
+                    $('#modalContainer').modal('hide');
+                    $('#vehiclefilter').closest('form').submit();
+                }
+            }
         }
     };
 })(jQuery);

@@ -1,0 +1,49 @@
+﻿@model Garage2.Vehicle
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Är du säker på att du vill hämta ut @WebUtility.HtmlDecode(Html.DisplayFor(model => model.Type).ToString()).ToLower() med registreringsnr: <span class="alert-danger">@Html.DisplayFor(model => model.RegNr)</span> ?</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Brand)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Brand)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Model)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Model)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Wheels)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Wheels)
+            </dd>
+        </dl>
+    </div>
+@using (Html.BeginForm("receipt", "garage"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Avbryt</button>
+        <input type="submit" value="Bekräfta" class="btn btn-danger" />
+    </div>
+}

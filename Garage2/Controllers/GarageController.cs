@@ -63,7 +63,7 @@ namespace Garage2.Controllers
 		public ActionResult Park()
 		{
 			Vehicle vehicleWithDefaults = new Vehicle();
-			return View(vehicleWithDefaults);
+			return PartialView("_Park", vehicleWithDefaults);
 		}
 
 		[HttpPost]
@@ -78,8 +78,7 @@ namespace Garage2.Controllers
 					vehicle.EntryTime = DateTime.Now;
 					db.Vehicles.Add(vehicle);
 					db.SaveChanges();
-					TempData["alert"] = "Fordonet är parkerat!";
-					return RedirectToAction("Index");
+					TempData["alert"] = "success|Fordonet är parkerat!";
 				}
 			}
 			catch (DataException /* dex */)
@@ -88,7 +87,7 @@ namespace Garage2.Controllers
 				//ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
 				ModelState.AddModelError("", "Kan inte spara ändringar. Försök igen och om problemet kvarstår kontakta din systemadministratör.");
 			}
-			return View(vehicle);
+			return PartialView("_Park", vehicle);
 		}
 
 		public ActionResult Edit(int? id)
@@ -119,8 +118,7 @@ namespace Garage2.Controllers
 				try
 				{
 					db.SaveChanges();
-					TempData["alert"] = "Fordonet är uppdaterat!";
-					return Content("Success");
+					TempData["alert"] = "success|Fordonet är uppdaterat!";
 				}
 				catch (RetryLimitExceededException /* dex */)
 				{
@@ -148,7 +146,7 @@ namespace Garage2.Controllers
 			{
 				return HttpNotFound();
 			}
-			return View(vehicle);
+			return PartialView("_Checkout", vehicle);
 		}
 
 		[HttpPost]

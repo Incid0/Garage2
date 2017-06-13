@@ -64,5 +64,10 @@
     </dl>
 </div>
 <div class="modal-footer">
-    @Html.ActionLink("Redigera fordonsdata", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary", role = "button" })
+    @Ajax.ActionLink(
+        "Redigera fordonsdata",
+        "Edit",
+        new { id = Model.Id },
+        new AjaxOptions { HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "popupContent" },
+        new { @class = "btn btn-primary", role = "button" })
 </div>

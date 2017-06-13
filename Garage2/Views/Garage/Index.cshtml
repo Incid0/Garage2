@@ -18,7 +18,7 @@
     @Html.Partial("_Vehicles", Model)
 }
 <p>
-    <a href="@Url.Action("Park")" class="btn btn-primary btn-lg">Parkera fordon</a>
+    <a href="@Url.Action("Park")" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalContainer">Parkera fordon</a>
 </p>
 <div id="modalContainer" class="modal" tabindex="-1" role="dialog">
     <div id="popupContent" class="modal-content">
