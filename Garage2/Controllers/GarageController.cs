@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Garage2;
 using Garage2.Extensions;
-using Garage2.Models;
+using Garage2.DataLayer;
 using System.Data.Entity.Infrastructure;
 
 namespace Garage2.Controllers
@@ -198,7 +198,7 @@ namespace Garage2.Controllers
 					TotalCost = String.Format("{0:C}", VehicleList.Sum(v => v.ParkSpan.TotalSeconds) / 3600d * 60d),
 					TypeCountList = VehicleList
 						.GroupBy(v => v.Type)
-						.Select(item => new TypeCount
+						.Select(item => new TypeCountViewModel
 						{
 							Type = item.Key,
 							Count = item.Count(),

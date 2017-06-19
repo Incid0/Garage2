@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 
-namespace Garage2.Models
+namespace Garage2.DataLayer
 {
 	class VehiclesDB : DbContext
 	{
