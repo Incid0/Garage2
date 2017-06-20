@@ -10,6 +10,7 @@ using Garage2;
 using Garage2.Extensions;
 using Garage2.DataLayer;
 using System.Data.Entity.Infrastructure;
+using Garage2.Models.VehicleViewModels;
 
 namespace Garage2.Controllers
 {
@@ -62,32 +63,39 @@ namespace Garage2.Controllers
 
 		public ActionResult Park()
 		{
-			Vehicle vehicleWithDefaults = new Vehicle();
+			EditVehicleViewModel vehicleWithDefaults = new EditVehicleViewModel();
 			return PartialView("_Park", vehicleWithDefaults);
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Park([Bind(Include = "RegNr,Type,Brand,Model,Color,Wheels")] Vehicle vehicle)
+		public ActionResult Park(EditVehicleViewModel evvm)
 		{
 			try
 			{
 				if (ModelState.IsValid)
 				{
-					// Set parking time
-					vehicle.EntryTime = DateTime.Now;
-					db.Vehicles.Add(vehicle);
-					db.SaveChanges();
-					TempData["alert"] = "success|Fordonet är parkerat!";
+					Vehicle newVehicle = new Vehicle();
+					if (TryUpdateModel(newVehicle, "", null, new string[] { "Id", "EntryTime" }))
+					{
+						// Set parking time
+						newVehicle.EntryTime = DateTime.Now;
+						db.Vehicles.Add(newVehicle);
+						db.SaveChanges();
+						TempData["alert"] = "success|Fordonet är parkerat!";
+					}
+					else
+					{
+						TempData["alert"] = "danger|Kunde inte lägga till fordonet!";
+					}
 				}
 			}
 			catch (DataException /* dex */)
 			{
 				//Log the error (uncomment dex variable name and add a line here to write a log.
-				//ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
 				ModelState.AddModelError("", "Kan inte spara ändringar. Försök igen och om problemet kvarstår kontakta din systemadministratör.");
 			}
-			return PartialView("_Park", vehicle);
+			return PartialView("_Park", evvm);
 		}
 
 		public ActionResult Edit(int? id)
@@ -101,19 +109,23 @@ namespace Garage2.Controllers
 			{
 				return HttpNotFound();
 			}
-			return PartialView("_Edit", vehicle);
+			EditVehicleViewModel evvm = vehicle;
+			HttpContext.Session["vehicleid"] = id;
+			return PartialView("_Edit", evvm);
 		}
 
-		[HttpPost, ActionName("Edit")]
+		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult EditPost(int? id)
+		public ActionResult Edit()
 		{
+			int? id = (int?)HttpContext.Session["vehicleid"];
 			if (id == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 			var vehicleToUpdate = db.Vehicles.Find(id);
-			if (TryUpdateModel(vehicleToUpdate, "", new string[] { "RegNr", "Type", "Brand", "Model", "Color", "Wheels" }))
+			if (id != null && TryUpdateModel(vehicleToUpdate, "", null, new string[] { "Id", "EntryTime" }))
+			//if (TryUpdateModel(vehicleToUpdate, "", new string[] { "RegNr", "Type", "Brand", "Model", "Color", "Wheels" }))
 			{
 				try
 				{
@@ -123,11 +135,14 @@ namespace Garage2.Controllers
 				catch (RetryLimitExceededException /* dex */)
 				{
 					//Log the error (uncomment dex variable name and add a line here to write a log.
-					//ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
 					ModelState.AddModelError("", "Kan inte spara ändringar. Försök igen och om problemet kvarstår kontakta din systemadministratör.");
 				}
 			}
-			return PartialView("_Edit", vehicleToUpdate);
+			else
+			{
+				TempData["alert"] = "danger|Kunde inte uppdatera fordonet!";
+			}
+			return PartialView("_Edit", (EditVehicleViewModel)vehicleToUpdate);
 		}
 
 		public ActionResult Checkout(int? id, bool? saveChangesError = false)

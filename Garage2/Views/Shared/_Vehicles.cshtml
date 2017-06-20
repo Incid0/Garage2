@@ -50,8 +50,8 @@
                         @item.ParkDuration
                     </td>
                     <td>
-                        @Html.ActionLink("Redigera", "Edit", new { id = item.Id }, new { @class = "btn btn-info btn-xs modal-link" }) &nbsp;
-                        @Html.ActionLink("Hämta fordon", "Checkout", new { id = item.Id }, new { @class = "btn btn-info btn-xs modal-link", role = "button" })
+                        @Html.ActionLink("Redigera", "Edit", new { id = item.Id }, new { @class = "btn btn-info btn-xs modal-link", data_backdrop = "static" }) &nbsp;
+                        @Html.ActionLink("Hämta fordon", "Checkout", new { id = item.Id }, new { @class = "btn btn-info btn-xs modal-link", data_backdrop = "static" })
                     </td>
                 </tr>}
         </table>
